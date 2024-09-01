@@ -3,10 +3,11 @@
 SegmentNode::SegmentNode() {}
 
 SegmentNode::SegmentNode(int low, int high, const vec_i *values)
-    : m_low(low), m_high(high), m_values(values) {
-    m_left = nullptr;
-    m_right = nullptr;
+    : m_low(low), m_high(high) {
     m_lazy = 0;
+    m_values = values;
+    m_left = NULL;
+    m_right = NULL;
 
     if (low == high) {
         m_value = values->at(low);
@@ -19,20 +20,13 @@ SegmentNode::SegmentNode(int low, int high, const vec_i *values)
     }
 }
 
-SegmentNode::~SegmentNode() {
-    if (m_left && m_right) {
-        delete m_left;
-        delete m_right;
-    }
-}
-
 void SegmentNode::setLazy(int lazy) { m_lazy = lazy; }
 
 void SegmentNode::applyLazy() {
     if (m_lazy != 0) {
         m_value += m_lazy * (m_high - m_low + 1);  // operation applied here
-        m_left->setLazy(m_lazy);
-        m_right->setLazy(m_lazy);
+        if (m_left) m_left->setLazy(m_lazy);
+        if (m_right) m_right->setLazy(m_lazy);
         m_lazy = 0;
     }
 }
@@ -59,21 +53,29 @@ int SegmentNode::updateRange(int low, int high, int diff) {
     } else if (low > m_high || high < m_low) {
         return 0;
     } else {
-        int diffLeft = m_left->updateRange(low, high, diff + m_lazy);
-        int diffRight = m_right->updateRange(low, high, diff + m_lazy);
-        m_value += diffLeft + diffRight;  // operation applied here
+        // operation applied here
+        int totalDiff = m_left->updateRange(low, high, diff + m_lazy) +
+                        m_right->updateRange(low, high, diff + m_lazy);
+        m_value += totalDiff;
+        return totalDiff;
     }
 }
 
 int SegmentNode::getValue() { return m_value; }
 
+// Segment tree
+
 SegmentTree::SegmentTree() {}
 
 SegmentTree::SegmentTree(vec_i values) {
+    if (values.empty()) {
+        throw std::invalid_argument("empty values vector received");
+    }
+
     m_low = 0;
-    m_high = m_values.size() - 1;
+    m_high = values.size() - 1;
     m_values = vec_i(values);
-    m_root = SegmentNode(0, m_high, &values);
+    m_root = SegmentNode(0, m_high, &m_values);
 }
 
 int SegmentTree::queryRange(int low, int high) {
@@ -82,4 +84,13 @@ int SegmentTree::queryRange(int low, int high) {
     }
 
     return m_root.queryRange(low, high);
+}
+
+void SegmentTree::updateRange(int low, int high, int diff) {
+    if (low > high || low < m_low || high > m_high) {
+        throw std::invalid_argument("invalid arguments received");
+    }
+    if (diff == 0) return;
+
+    m_root.updateRange(low, high, diff);
 }

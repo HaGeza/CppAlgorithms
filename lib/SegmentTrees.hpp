@@ -14,7 +14,6 @@ class SegmentNode {
    public:
     SegmentNode();
     SegmentNode(int low, int high, const vec_i *values);
-    ~SegmentNode();
     void setLazy(int lazy);
     void applyLazy();
     int queryRange(int low, int high);
@@ -31,6 +30,7 @@ class SegmentTree {
     SegmentTree();
     SegmentTree(vec_i values);
     int queryRange(int low, int high);
+    void updateRange(int low, int high, int diff);
 };
 
 #endif  // SEGMENTTREES_HPP
