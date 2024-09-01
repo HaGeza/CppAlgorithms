@@ -75,7 +75,7 @@ SegmentTree::SegmentTree(vec_i values) {
     m_low = 0;
     m_high = values.size() - 1;
     m_values = vec_i(values);
-    m_root = SegmentNode(0, m_high, &m_values);
+    m_root = std::make_unique<SegmentNode>(0, m_high, &m_values);
 }
 
 int SegmentTree::queryRange(int low, int high) {
@@ -83,7 +83,7 @@ int SegmentTree::queryRange(int low, int high) {
         throw std::invalid_argument("invalid arguments received");
     }
 
-    return m_root.queryRange(low, high);
+    return m_root->queryRange(low, high);
 }
 
 void SegmentTree::updateRange(int low, int high, int diff) {
@@ -92,5 +92,5 @@ void SegmentTree::updateRange(int low, int high, int diff) {
     }
     if (diff == 0) return;
 
-    m_root.updateRange(low, high, diff);
+    m_root->updateRange(low, high, diff);
 }

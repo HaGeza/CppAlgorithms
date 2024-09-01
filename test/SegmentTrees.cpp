@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <thread>
+
 class SegmentTreeTest : public ::testing::Test {
    protected:
     vec_i values;
@@ -45,6 +47,11 @@ TEST_F(SegmentTreeTest, UpdateRangeInvalid) {
     EXPECT_THROW(tree->updateRange(2, 1, 3), std::invalid_argument);
     EXPECT_THROW(tree->updateRange(0, 10, -1), std::invalid_argument);
 }
+
+// TEST_F(SegmentTreeTest, WaitForAMinute) {
+//     std::this_thread::sleep_for(std::chrono::minutes(1));
+//     SUCCEED();  // Mark the test as passed
+// }
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);

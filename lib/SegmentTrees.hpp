@@ -24,7 +24,7 @@ class SegmentNode {
 class SegmentTree {
     int m_low, m_high;
     vec_i m_values;
-    SegmentNode m_root;
+    std::unique_ptr<SegmentNode> m_root;
 
    public:
     SegmentTree();

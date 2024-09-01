@@ -18,3 +18,8 @@ include_directories(lib)
 
 add_subdirectory(src)
 add_subdirectory(test)
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    message(STATUS "Debug build: enabling debugging flags")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -lgtest -lgtest_main -pthread")
+endif()
