@@ -8,12 +8,12 @@ typedef std::vector<int> vec_i;
 
 class SegmentNode {
     int m_low, m_high, m_value, m_lazy;
-    SegmentNode *m_left, *m_right;
-    const vec_i *m_values;
+    std::unique_ptr<SegmentNode> m_left, m_right;
+    std::shared_ptr<vec_i> m_values;
 
    public:
     SegmentNode();
-    SegmentNode(int low, int high, const vec_i *values);
+    SegmentNode(int low, int high, std::shared_ptr<vec_i> values);
     void setLazy(int lazy);
     void applyLazy();
     int queryRange(int low, int high);
@@ -23,8 +23,7 @@ class SegmentNode {
 
 class SegmentTree {
     int m_low, m_high;
-    vec_i m_values;
-    std::unique_ptr<SegmentNode> m_root;
+    SegmentNode m_root;
 
    public:
     SegmentTree();

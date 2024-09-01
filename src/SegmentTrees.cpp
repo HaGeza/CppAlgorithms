@@ -2,7 +2,7 @@
 
 SegmentNode::SegmentNode() {}
 
-SegmentNode::SegmentNode(int low, int high, const vec_i *values)
+SegmentNode::SegmentNode(int low, int high, std::shared_ptr<vec_i> values)
     : m_low(low), m_high(high) {
     m_lazy = 0;
     m_values = values;
@@ -13,8 +13,8 @@ SegmentNode::SegmentNode(int low, int high, const vec_i *values)
         m_value = values->at(low);
     } else {
         int middle = (low + high) / 2;
-        m_left = new SegmentNode(low, middle, values);
-        m_right = new SegmentNode(middle + 1, high, values);
+        m_left = std::make_unique<SegmentNode>(low, middle, values);
+        m_right = std::make_unique<SegmentNode>(middle + 1, high, values);
         m_value =
             m_left->getValue() + m_right->getValue();  // operation applied here
     }
@@ -74,8 +74,8 @@ SegmentTree::SegmentTree(vec_i values) {
 
     m_low = 0;
     m_high = values.size() - 1;
-    m_values = vec_i(values);
-    m_root = std::make_unique<SegmentNode>(0, m_high, &m_values);
+    auto ptr = std::shared_ptr<vec_i>(new vec_i(values));
+    m_root = SegmentNode(0, m_high, ptr);
 }
 
 int SegmentTree::queryRange(int low, int high) {
@@ -83,7 +83,7 @@ int SegmentTree::queryRange(int low, int high) {
         throw std::invalid_argument("invalid arguments received");
     }
 
-    return m_root->queryRange(low, high);
+    return m_root.queryRange(low, high);
 }
 
 void SegmentTree::updateRange(int low, int high, int diff) {
@@ -92,5 +92,5 @@ void SegmentTree::updateRange(int low, int high, int diff) {
     }
     if (diff == 0) return;
 
-    m_root->updateRange(low, high, diff);
+    m_root.updateRange(low, high, diff);
 }

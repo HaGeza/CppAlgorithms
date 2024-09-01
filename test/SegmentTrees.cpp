@@ -48,11 +48,6 @@ TEST_F(SegmentTreeTest, UpdateRangeInvalid) {
     EXPECT_THROW(tree->updateRange(0, 10, -1), std::invalid_argument);
 }
 
-// TEST_F(SegmentTreeTest, WaitForAMinute) {
-//     std::this_thread::sleep_for(std::chrono::minutes(1));
-//     SUCCEED();  // Mark the test as passed
-// }
-
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
