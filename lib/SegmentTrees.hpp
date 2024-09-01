@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <vector>
 
-typedef std::vector<int> vec_i;
+#include "typedefs.hpp"
 
 class SegmentNode {
     int m_low, m_high, m_value, m_lazy;
