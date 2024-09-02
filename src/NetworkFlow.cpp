@@ -72,7 +72,7 @@ std::pair<vec_i, int> BFS(int source, int sink, wdag &flowGraph) {
     vec_i path = vec_i({node});
     while (node != source) {
         node = parent[node];
-        path.push_back(node);
+        path.emplace_back(node);
     }
     std::reverse(path.begin(), path.end());
     return {path, flow};

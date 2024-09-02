@@ -14,7 +14,7 @@ Trie::Trie(vec<str> keys) {
             continue;
         }
         char c = key[0];
-        children_by_start[c].push_back(key.substr(1));
+        children_by_start[c].emplace_back(key.substr(1));
     }
 
     for (auto &it : children_by_start) {
