@@ -9,4 +9,9 @@ std::pair<vec_i, int> DFS(int node, int sink, wdag &flowGraph, int currentFlow,
 
 std::pair<vec_i, int> DFS(int source, int sink, wdag &flowGraph);
 
-int fordFulkerson(int source, int sink, vec<vec<pair_ii>> graph, int n);
+std::pair<vec_i, int> BFS(int source, int sink, wdag &flowGraph);
+
+int fordFulkerson(int source, int sink, vec<vec<pair_ii>> &graph, int n,
+                  std::pair<vec_i, int> (*findPath)(int, int, wdag));
+int fordFulkerson(int source, int sink, vec<vec<pair_ii>> &graph, int n);
+int edmondKarp(int source, int sink, vec<vec<pair_ii>> &graph, int n);
