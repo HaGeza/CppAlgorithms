@@ -2,9 +2,11 @@
 
 #include "typedefs.hpp"
 
-std::pair<vec_i, int> DFS(int node, int sink, vec<vec<pair_ii>> &flowGraph,
-                          int currentFlow, vec<bool> &seen);
+using wdag = vec<umap<int, int>>;
 
-std::pair<vec_i, int> DFS(int source, int sink, vec<vec<pair_ii>> &flowGraph);
+std::pair<vec_i, int> DFS(int node, int sink, wdag &flowGraph, int currentFlow,
+                          vec<bool> &seen);
 
-int fordFulkerson(int source, int sink, vec<vec<pair_ii>> graph);
+std::pair<vec_i, int> DFS(int source, int sink, wdag &flowGraph);
+
+int fordFulkerson(int source, int sink, vec<vec<pair_ii>> graph, int n);

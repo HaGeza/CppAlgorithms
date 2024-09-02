@@ -12,5 +12,5 @@ class NetworkFlowTest : public ::testing::Test {
 };
 
 TEST_F(NetworkFlowTest, FordFulkerson) {
-    ASSERT_EQ(fordFulkerson(0, 5, graph), 23);
+    ASSERT_EQ(fordFulkerson(0, 5, graph, 6), 23);
 }
