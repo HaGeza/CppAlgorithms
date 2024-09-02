@@ -11,4 +11,6 @@ template <typename T, typename U>
 using umap = std::unordered_map<T, U>;
 using str = std::string;
 
+using pair_ii = std::pair<int, int>;
+
 #endif  // TYPEDEFS_HPP

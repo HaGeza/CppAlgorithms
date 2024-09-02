@@ -2,8 +2,6 @@
 
 #include <gtest/gtest.h>
 
-#include <thread>
-
 class TrieTest : public ::testing::Test {
    protected:
     vec<str> keys;
