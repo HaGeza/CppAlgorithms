@@ -13,4 +13,6 @@ using str = std::string;
 
 using pair_ii = std::pair<int, int>;
 
+using uint = unsigned int;
+
 #endif  // TYPEDEFS_HPP
