@@ -27,7 +27,9 @@ TEST_F(StringSearchTest, boyerMooreWorks) {
         str text = texts[k], pat = pats[k];
         vec_i expectedMatches = results[k];
 
-        vec_i matches = boyerMoore(text, pat);
+        str test = "AACCACCAC";
+        vec_i matches = boyerMoore(text, test);
+        // vec_i matches = boyerMoore(text, pat);
         ASSERT_EQ(matches.size(), expectedMatches.size());
         for (int i = 0; i < matches.size(); i++) {
             ASSERT_EQ(matches[i], expectedMatches[i]);

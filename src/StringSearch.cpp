@@ -36,4 +36,32 @@ vec_i knuthMorrisPratt(str text, str pat) {
     return matches;
 }
 
-vec_i boyerMoore(str text, str pat) { return vec_i(); }
+vec_i boyerMoore(str text, str pat) {
+    int n = text.size(), m = pat.size();
+
+    // Bad character shift
+    vec_i bcs(m);
+    umap<char, int> lastOccurrenceTable;
+    for (int i = 0; i < m; i++) {
+        auto lastIt = lastOccurrenceTable.find(pat[i]);
+        bcs[i] = lastIt == lastOccurrenceTable.end() ? -1 : lastIt->second;
+        lastOccurrenceTable[pat[i]] = i;
+    }
+
+    // Good suffix position & good suffix shift
+    vec_i gsp(m, 0), gss(m, 0);
+    gsp[m - 1] = m;
+    int j = m;
+    for (int i = m - 1; i > 0; i--) {
+        while (j < m && pat[i - 1] != pat[j - 1]) {
+            if (gss[i] == 0) {
+                gss[j] = j - i;
+            }
+            j = gsp[j];
+        }
+        j -= (pat[i - 1] == pat[j - 1]);
+        gsp[i - 1] = j;
+    }
+
+    return vec_i();
+}
