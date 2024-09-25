@@ -5,11 +5,9 @@
 int GCD(int a, int b) {
     if (a < b) std::swap(a, b);
 
-    int remainder;
     while (b != 0) {
-        remainder = a % b;
-        a = b;
-        b = remainder;
+        a = a % b;
+        std::swap(a, b);
     }
     return a;
 }

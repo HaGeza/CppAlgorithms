@@ -1,3 +1,6 @@
+#ifndef NETWORK_FLOW_HPP
+#define NETWORK_FLOW_HPP
+
 #include <climits>
 
 #include "typedefs.hpp"
@@ -15,3 +18,5 @@ int fordFulkerson(int source, int sink, vec<vec<pair_ii>> &graph, int n,
                   std::pair<vec_i, int> (*findPath)(int, int, wdag));
 int fordFulkerson(int source, int sink, vec<vec<pair_ii>> &graph, int n);
 int edmondKarp(int source, int sink, vec<vec<pair_ii>> &graph, int n);
+
+#endif  // NETWORK_FLOW_HPP

@@ -1,3 +1,6 @@
+#ifndef TRIE_HPP
+#define TRIE_HPP
+
 #include "typedefs.hpp"
 
 class Trie {
@@ -15,3 +18,5 @@ class Trie {
 };
 
 typedef std::unique_ptr<Trie> TrieChild;
+
+#endif  // TRIE_HPP

@@ -74,7 +74,7 @@ SegmentTree::SegmentTree(vec_i values) {
 
     m_low = 0;
     m_high = values.size() - 1;
-    auto ptr = std::shared_ptr<vec_i>(new vec_i(values));
+    auto ptr = std::make_shared<vec_i>(values);
     m_root = SegmentNode(0, m_high, ptr);
 }
 
